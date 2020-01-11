@@ -12,8 +12,13 @@ import java.util.Date;
 
 @RestController
 public class UserController {
-    @Autowired
+
     private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/user/{id}")
     public User findUserById(@PathVariable("id") Integer id) {
@@ -22,9 +27,12 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity insertUser(@RequestBody User user) {
+    public ResponseEntity<String> insertUser(@RequestBody User user) {
         user.setCreateDate(new Date());
         int insert = userService.insertUser(user);
-        return insert == 1 ? new ResponseEntity(HttpStatus.CREATED) : new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return insert == 1 ?
+                new ResponseEntity<>("insert: " + insert, HttpStatus.CREATED)
+                :
+                new ResponseEntity<>("insert fail", HttpStatus.BAD_REQUEST);
     }
 }
