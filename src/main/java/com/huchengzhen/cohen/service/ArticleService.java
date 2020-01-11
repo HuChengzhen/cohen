@@ -7,8 +7,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ArticleService {
-    @Autowired
+
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private void setArticleMapper(ArticleMapper articleMapper) {
+        this.articleMapper = articleMapper;
+    }
 
     public Article findArticleById(Integer id) {
         return articleMapper.findArticleById(id);
