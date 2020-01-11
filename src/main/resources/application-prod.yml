@@ -1,0 +1,20 @@
+server:
+  port: ${CohenServerPort}
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    url: jdbc:mysql:///${CohenDatabaseName}?serverTimezone=${CohenTimeZone}&characterEncoding=UTF-8
+    username: ${CohenDatabaseUsername}
+    password: ${CohenDatabasePassword}
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations:
+    - classpath:/mapper/*.xml
+
+logging:
+  level:
+    com.huchengzhen: debug
