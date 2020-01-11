@@ -2,6 +2,8 @@ server:
   port: ${CohenServerPort}
   servlet:
     context-path: /
+  error:
+    include-stacktrace: never
 
 spring:
   datasource:
@@ -17,4 +19,7 @@ mybatis:
 
 logging:
   level:
-    com.huchengzhen: debug
+    root: debug
+    com.huchengzhen.cohen: debug
+  file:
+    path: ${CohenLoggingFilePath}

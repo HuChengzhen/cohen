@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huchengzhen.cohen.mapper.ArticleMapper">
+
+    <resultMap id="articleResultMap" type="com.huchengzhen.cohen.pojo.Article">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="article" column="article"/>
+        <result property="uploadedDate" column="uploaded_date"/>
+        <result property="editDate" column="edit_date"/>
+        <association property="author" javaType="Author">
+            <id property="id" column="author_id"/>
+            <result property="userName" column="user_name"/>
+            <result property="email" column="email"/>
+            <result property="createDate" column="create_date"/>
+            <result property="lastLoginDate" column="last_login_date"/>
+        </association>
+    </resultMap>
+
+    <select id="findArticleById" resultMap="articleResultMap">
+        select article.id,
+               article.title,
+               article.article,
+               article.author_id,
+               article.uploaded_date,
+               article.edit_date,
+               user.user_name,
+               user.email,
+               user.create_date,
+               user.last_login_date
+        from article,
+             user
+        where article.id = #{id}
+          and article.author_id = user.id
+    </select>
+
+</mapper>
