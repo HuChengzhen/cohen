@@ -11,6 +11,7 @@ import javax.websocket.server.PathParam;
 import java.util.Date;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     private UserService userService;
@@ -20,13 +21,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public User findUserById(@PathVariable("id") Integer id) {
         System.out.println(id);
         return userService.findUserById(id);
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public ResponseEntity<String> insertUser(@RequestBody User user) {
         user.setCreateDate(new Date());
         int insert = userService.insertUser(user);

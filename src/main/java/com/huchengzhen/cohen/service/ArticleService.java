@@ -19,7 +19,7 @@ public class ArticleService {
         return articleMapper.findArticleById(id);
     }
 
-    public Article findArticleById2(Integer id) {
-        return articleMapper.findArticleById2(id);
+    public Article findArticleByIdJoin(Integer id) {
+        return articleMapper.findArticleByIdJoin(id);
     }
 }

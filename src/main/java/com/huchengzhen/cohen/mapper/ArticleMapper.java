@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ArticleMapper {
     Article findArticleById(Integer id);
 
-    Article findArticleById2(Integer id);
+    Article findArticleByIdJoin(Integer id);
 }
