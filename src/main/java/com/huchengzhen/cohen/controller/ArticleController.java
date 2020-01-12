@@ -31,7 +31,7 @@ public class ArticleController {
         return articleService.findArticleById(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public PageInfo<Article> queryAll(@RequestParam(value = "page", defaultValue = "1") int page,
                                       @RequestParam(value = "size", defaultValue = "20") int size) {
         PageHelper.startPage(page, size);
