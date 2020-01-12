@@ -6,6 +6,8 @@ import com.huchengzhen.cohen.pojo.ArticleDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ArticleService {
 
@@ -26,5 +28,10 @@ public class ArticleService {
 
     public Article findArticleById(Integer id) {
         return articleMapper.findArticleById(id);
+    }
+
+
+    public List<Article> queryAll() {
+        return articleMapper.queryAll();
     }
 }

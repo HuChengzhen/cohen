@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.huchengzhen.cohen.mapper.ArticleMapper">
 
-    <resultMap id="articleResultJoinMap" type="com.huchengzhen.cohen.pojo.ArticleDetail">
+    <resultMap id="articleDetailResultJoinMap" type="com.huchengzhen.cohen.pojo.ArticleDetail">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="article" column="article"/>
@@ -18,7 +18,7 @@
         </association>
     </resultMap>
 
-    <select id="findArticleDetailByIdJoin" resultMap="articleResultJoinMap">
+    <select id="findArticleDetailByIdJoin" resultMap="articleDetailResultJoinMap">
         select article.id,
                article.title,
                article.article,
@@ -35,7 +35,7 @@
           and article.author_id = user.id
     </select>
 
-    <resultMap id="articleResultMap" type="com.huchengzhen.cohen.pojo.ArticleDetail">
+    <resultMap id="articleDetailResultMap" type="com.huchengzhen.cohen.pojo.ArticleDetail">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="article" column="article"/>
@@ -49,7 +49,7 @@
         </collection>
     </resultMap>
 
-    <select id="findArticleDetailById" resultMap="articleResultMap">
+    <select id="findArticleDetailById" resultMap="articleDetailResultMap">
         select article.id,
                article.title,
                article.article,
@@ -71,4 +71,13 @@
         where id = #{id}
     </select>
 
+    <select id="queryAll" resultType="com.huchengzhen.cohen.pojo.Article">
+        select id,
+               title,
+               article,
+               author_id,
+               uploaded_date,
+               edit_date
+        from article
+    </select>
 </mapper>

@@ -1,9 +1,12 @@
 package com.huchengzhen.cohen.service;
 
 import com.huchengzhen.cohen.mapper.UserMapper;
+import com.huchengzhen.cohen.pojo.Article;
 import com.huchengzhen.cohen.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -21,4 +24,5 @@ public class UserService {
     public int insertUser(User user) {
         return userMapper.insertUser(user);
     }
+
 }
