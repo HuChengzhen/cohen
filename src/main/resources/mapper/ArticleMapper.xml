@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.huchengzhen.cohen.mapper.ArticleMapper">
 
-    <resultMap id="articleResultJoinMap" type="com.huchengzhen.cohen.pojo.Article">
+    <resultMap id="articleResultJoinMap" type="com.huchengzhen.cohen.pojo.ArticleDetail">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="article" column="article"/>
@@ -18,7 +18,7 @@
         </association>
     </resultMap>
 
-    <select id="findArticleByIdJoin" resultMap="articleResultJoinMap">
+    <select id="findArticleDetailByIdJoin" resultMap="articleResultJoinMap">
         select article.id,
                article.title,
                article.article,
@@ -35,7 +35,7 @@
           and article.author_id = user.id
     </select>
 
-    <resultMap id="articleResultMap" type="com.huchengzhen.cohen.pojo.Article">
+    <resultMap id="articleResultMap" type="com.huchengzhen.cohen.pojo.ArticleDetail">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="article" column="article"/>
@@ -43,9 +43,13 @@
         <result property="editDate" column="edit_date"/>
         <association property="author" javaType="com.huchengzhen.cohen.pojo.User" fetchType="eager"
                      select="com.huchengzhen.cohen.mapper.UserMapper.findUserById" column="{id=author_id}"/>
+        <collection property="comments" ofType="com.huchengzhen.cohen.pojo.Comment"
+                    select="com.huchengzhen.cohen.mapper.CommentMapper.findCommentsByArticleId" column="{articleId=id}">
+
+        </collection>
     </resultMap>
 
-    <select id="findArticleById" resultMap="articleResultMap">
+    <select id="findArticleDetailById" resultMap="articleResultMap">
         select article.id,
                article.title,
                article.article,
@@ -54,6 +58,17 @@
                article.edit_date
         from article
         where article.id = #{id}
+    </select>
+
+    <select id="findArticleById" resultType="com.huchengzhen.cohen.pojo.Article">
+        select id,
+               title,
+               article,
+               author_id,
+               uploaded_date,
+               edit_date
+        from article
+        where id = #{id}
     </select>
 
 </mapper>

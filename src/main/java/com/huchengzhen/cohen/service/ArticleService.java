@@ -2,6 +2,7 @@ package com.huchengzhen.cohen.service;
 
 import com.huchengzhen.cohen.mapper.ArticleMapper;
 import com.huchengzhen.cohen.pojo.Article;
+import com.huchengzhen.cohen.pojo.ArticleDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,15 @@ public class ArticleService {
         this.articleMapper = articleMapper;
     }
 
-    public Article findArticleById(Integer id) {
-        return articleMapper.findArticleById(id);
+    public ArticleDetail findArticleDetailById(Integer id) {
+        return articleMapper.findArticleDetailById(id);
     }
 
-    public Article findArticleByIdJoin(Integer id) {
-        return articleMapper.findArticleByIdJoin(id);
+    public ArticleDetail findArticleDetailByIdJoin(Integer id) {
+        return articleMapper.findArticleDetailByIdJoin(id);
+    }
+
+    public Article findArticleById(Integer id) {
+        return articleMapper.findArticleById(id);
     }
 }
