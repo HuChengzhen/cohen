@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.ConstraintViolationException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.logging.Level;
 
 @ControllerAdvice
@@ -21,4 +22,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    @ResponseBody
+    public ResponseEntity<String> doHandleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
+        log.log(Level.INFO,e.getMessage(), e);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

@@ -11,7 +11,7 @@
         <result property="editDate" column="edit_date"/>
         <association property="author" javaType="com.huchengzhen.cohen.pojo.User" fetchType="lazy">
             <id property="id" column="author_id"/>
-            <result property="userName" column="user_name"/>
+            <result property="username" column="username"/>
             <result property="email" column="email"/>
             <result property="createDate" column="create_date"/>
             <result property="lastLoginDate" column="last_login_date"/>
@@ -25,7 +25,7 @@
                article.author_id,
                article.uploaded_date,
                article.edit_date,
-               user.user_name,
+               user.username,
                user.email,
                user.create_date,
                user.last_login_date

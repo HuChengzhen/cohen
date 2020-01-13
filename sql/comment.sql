@@ -13,4 +13,4 @@ create table if not exists comment (
         references user (id)
         on update cascade
         on delete restrict
-)
+) engine = InnoDB;

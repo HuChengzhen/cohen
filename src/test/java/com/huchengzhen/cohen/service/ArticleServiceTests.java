@@ -20,7 +20,6 @@ public class ArticleServiceTests {
 
     @Test
     public void findArticleByIdTests() {
-        userService.insertUser(new User());
         long startTime = System.currentTimeMillis();
         ArticleDetail articleDetail = articleService.findArticleDetailById(1);
         System.out.println(articleDetail);

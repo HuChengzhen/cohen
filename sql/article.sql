@@ -11,4 +11,4 @@ create table if not exists article
         references user (id)
         on update cascade
         on delete restrict
-)
+) engine = InnoDB;
