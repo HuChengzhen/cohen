@@ -4,6 +4,7 @@ import com.huchengzhen.cohen.mapper.UserMapper;
 import com.huchengzhen.cohen.pojo.Article;
 import com.huchengzhen.cohen.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,5 +39,14 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found."));
         user.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(user.getRoles()));
         return user;
+    }
+
+    public int deleteUserById(Integer id) {
+        return userMapper.deleteUserById(id);
+    }
+
+    @PreAuthorize("principal.id == #id")
+    public int updateLastLoginDate(Integer id, Date date) {
+        return userMapper.updateLastLoginDate(id, date);
     }
 }

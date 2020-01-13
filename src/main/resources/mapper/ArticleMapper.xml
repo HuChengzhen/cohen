@@ -80,4 +80,15 @@
                edit_date
         from article
     </select>
+
+    <delete id="deleteArticlesByAuthorId" parameterType="Integer">
+        delete
+        from article
+        where author_id = #{authorId}
+    </delete>
+
+    <insert id="insertArticle" parameterType="com.huchengzhen.cohen.pojo.Article">
+        insert into article (id, title, article, author_id, uploaded_date, edit_date)
+        values (null, #{title}, #{article}, #{authorId}, #{uploadedDate}, #{editDate})
+    </insert>
 </mapper>

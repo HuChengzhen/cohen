@@ -15,4 +15,8 @@ public interface ArticleMapper {
     Article findArticleById(Integer id);
 
     List<Article> queryAll();
+
+    int deleteArticlesByAuthorId(Integer authorId);
+
+    int insertArticle(Article article);
 }

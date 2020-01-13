@@ -19,4 +19,8 @@ public class CommentService {
     public List<Comment> findCommentsByArticleId(Integer id) {
         return commentMapper.findCommentsByArticleId(id);
     }
+
+    public int deleteCommentByUserId(Integer userId) {
+        return commentMapper.deleteCommentByUserId(userId);
+    }
 }

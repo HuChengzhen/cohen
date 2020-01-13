@@ -25,4 +25,16 @@
         from user
         where username = #{username}
     </select>
+
+    <delete id="deleteUserById" parameterType="Integer">
+        delete
+        from user
+        where id = #{id}
+    </delete>
+
+    <update id="updateLastLoginDate">
+        update user
+        set last_login_date=#{date}
+        where id = #{id}
+    </update>
 </mapper>

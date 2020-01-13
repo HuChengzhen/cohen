@@ -34,4 +34,12 @@ public class ArticleService {
     public List<Article> queryAll() {
         return articleMapper.queryAll();
     }
+
+    public int deleteArticleByAuthorId(Integer authorId) {
+        return articleMapper.deleteArticlesByAuthorId(authorId);
+    }
+
+    public int insertArticle(Article article) {
+        return articleMapper.insertArticle(article);
+    }
 }

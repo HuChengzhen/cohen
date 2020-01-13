@@ -11,5 +11,9 @@
         from comment
         where article_id = #{articleId}
     </select>
-
+    <delete id="deleteCommentByUserId" parameterType="Integer">
+        delete
+        from comment
+        where user_id = #{userId}
+    </delete>
 </mapper>

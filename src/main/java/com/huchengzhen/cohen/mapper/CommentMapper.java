@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
     List<Comment> findCommentsByArticleId(Integer articleId);
+
+    int deleteCommentByUserId(Integer userId);
 }
