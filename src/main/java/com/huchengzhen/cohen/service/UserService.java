@@ -1,7 +1,6 @@
 package com.huchengzhen.cohen.service;
 
 import com.huchengzhen.cohen.mapper.UserMapper;
-import com.huchengzhen.cohen.pojo.Article;
 import com.huchengzhen.cohen.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,9 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {

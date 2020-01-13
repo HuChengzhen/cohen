@@ -9,8 +9,7 @@ import com.huchengzhen.cohen.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -47,10 +46,10 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<String> insertArticle(@RequestBody Article article) {
+    public ResponseEntity<String> insertArticle(@RequestBody Article article, Authentication authentication) {
         article.setUploadedDate(new Date());
         article.setEditDate(new Date());
-        article.setAuthorId(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+        article.setAuthorId(((User) authentication.getPrincipal()).getId());
         int row = articleService.insertArticle(article);
         return row == 1 ? new ResponseEntity<>("Success", HttpStatus.CREATED) : new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
     }

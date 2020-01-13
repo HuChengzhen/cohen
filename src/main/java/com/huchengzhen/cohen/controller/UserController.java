@@ -1,7 +1,5 @@
 package com.huchengzhen.cohen.controller;
 
-import com.huchengzhen.cohen.mapper.ArticleMapper;
-import com.huchengzhen.cohen.pojo.Article;
 import com.huchengzhen.cohen.pojo.User;
 import com.huchengzhen.cohen.service.ArticleService;
 import com.huchengzhen.cohen.service.CommentService;
@@ -10,14 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 
 @RestController
