@@ -1,6 +1,5 @@
 package com.huchengzhen.cohen.controller;
 
-import com.huchengzhen.cohen.auth.api.UserAuthenticationService;
 import com.huchengzhen.cohen.pojo.User;
 import com.huchengzhen.cohen.service.UserService;
 import com.huchengzhen.cohen.util.TokenUtil;
@@ -20,7 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.Date;
 
 @RestController
@@ -32,8 +30,6 @@ public class UserController {
     private UserService userService;
     @Autowired
     private AuthenticationManager authenticationManager;
-    @NonNull
-    UserAuthenticationService authentication;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -60,14 +56,9 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
         user.setLastLoginDate(new Date());
-        UserDetails userDetails = userService.loadUserByUsername(user.getUsername());
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if (!passwordEncoder.matches(user.getPassword(), userDetails.getPassword())) {
-            return new ResponseEntity<>("wrong password or username", HttpStatus.FORBIDDEN);
-        }
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         Authentication authentication = this.authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>(TokenUtil.createToken(userDetails), HttpStatus.OK);
+        return new ResponseEntity<>(TokenUtil.createToken((User) authentication.getPrincipal()), HttpStatus.OK);
     }
 }
