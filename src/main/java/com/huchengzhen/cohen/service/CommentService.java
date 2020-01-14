@@ -23,4 +23,8 @@ public class CommentService {
     public int deleteCommentByUserId(Integer userId) {
         return commentMapper.deleteCommentByUserId(userId);
     }
+
+    public int deleteCommentByArticleId(Integer articleId) {
+        return commentMapper.deleteCommentByArticleId(articleId);
+    }
 }

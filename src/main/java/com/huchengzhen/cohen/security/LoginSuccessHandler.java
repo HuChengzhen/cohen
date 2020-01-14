@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @Component
-public class MyLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private UserService userService;
 

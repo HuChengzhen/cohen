@@ -91,4 +91,10 @@
         insert into article (id, title, article, author_id, uploaded_date, edit_date)
         values (null, #{title}, #{article}, #{authorId}, #{uploadedDate}, #{editDate})
     </insert>
+
+    <delete id="deleteArticleById" parameterType="Integer">
+        delete
+        from article
+        where id = #{id}
+    </delete>
 </mapper>

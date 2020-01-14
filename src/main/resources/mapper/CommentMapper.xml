@@ -16,4 +16,10 @@
         from comment
         where user_id = #{userId}
     </delete>
+
+    <delete id="deleteCommentByArticleId" parameterType="Integer">
+        delete
+        from comment
+        where article_id = #{articleId}
+    </delete>
 </mapper>

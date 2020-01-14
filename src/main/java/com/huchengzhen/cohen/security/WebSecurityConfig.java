@@ -3,6 +3,7 @@ package com.huchengzhen.cohen.security;
 
 import com.huchengzhen.cohen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.ServletException;
@@ -28,16 +28,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-    private MyLoginSuccessHandler mySuccessHandler;
+    private LoginSuccessHandler successHandler;
 
-    private SimpleUrlAuthenticationFailureHandler myFailureHandler = new SimpleUrlAuthenticationFailureHandler();
+    private LoginFailureHandler failureHandler;
+
+    @Value("${CohenRememberMeKey}")
+    private String rememberMeKey;
 
     @Autowired
     private CustomAccessDeniedHandler accessDeniedHandler;
 
     @Autowired
-    public void setMySuccessHandler(MyLoginSuccessHandler mySuccessHandler) {
-        this.mySuccessHandler = mySuccessHandler;
+    public void setSuccessHandler(LoginSuccessHandler successHandler) {
+        this.successHandler = successHandler;
+    }
+
+    @Autowired
+    public void setFailureHandler(LoginFailureHandler failureHandler) {
+        this.failureHandler = failureHandler;
     }
 
     @Autowired
@@ -70,11 +78,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().hasRole("USER")
                 .and()
                 .formLogin()
-                .successHandler(mySuccessHandler)
-                .failureHandler(myFailureHandler)
+                .successHandler(successHandler)
+                .failureHandler(failureHandler)
                 .and()
                 .rememberMe()
                 .userDetailsService(userService)
+                .key(rememberMeKey)
                 .and()
                 .logout()
                 .logoutSuccessHandler(new LogoutSuccessHandler() {

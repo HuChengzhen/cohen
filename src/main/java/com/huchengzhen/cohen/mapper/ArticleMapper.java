@@ -19,4 +19,6 @@ public interface ArticleMapper {
     int deleteArticlesByAuthorId(Integer authorId);
 
     int insertArticle(Article article);
+
+    int deleteArticleById(Integer id);
 }

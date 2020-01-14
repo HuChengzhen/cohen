@@ -42,4 +42,8 @@ public class ArticleService {
     public int insertArticle(Article article) {
         return articleMapper.insertArticle(article);
     }
+
+    public int deleteArticleById(Integer id) {
+        return articleMapper.deleteArticleById(id);
+    }
 }

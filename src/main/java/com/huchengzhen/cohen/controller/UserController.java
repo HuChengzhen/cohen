@@ -56,9 +56,9 @@ public class UserController {
                 new ResponseEntity<>("insert fail", HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') and #id != principal.id")
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional
     public void deleteUser(@PathVariable("id") Integer id) {
         int commentRows = commentService.deleteCommentByUserId(id);
         int articleRows = articleService.deleteArticleByAuthorId(id);
