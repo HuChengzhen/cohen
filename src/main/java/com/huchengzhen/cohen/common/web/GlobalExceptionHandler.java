@@ -15,17 +15,24 @@ import java.util.logging.Level;
 @Log
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseBody
+    public ResponseEntity<String> doHandleIllegalArgumentException(IllegalArgumentException e) {
+        log.log(Level.INFO, e.getMessage(), e);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
     public ResponseEntity<String> doHandleConstraintViolationException(ConstraintViolationException e) {
-        log.log(Level.INFO,e.getMessage(), e);
+        log.log(Level.INFO, e.getMessage(), e);
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     @ResponseBody
     public ResponseEntity<String> doHandleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
-        log.log(Level.INFO,e.getMessage(), e);
+        log.log(Level.INFO, e.getMessage(), e);
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

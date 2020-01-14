@@ -19,6 +19,6 @@ mybatis:
 
 logging:
   level:
-    root: trace
+    root: debug
   file:
     path: ${CohenLoggingFilePath}

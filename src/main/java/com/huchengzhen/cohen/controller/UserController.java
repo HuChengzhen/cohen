@@ -4,6 +4,7 @@ import com.huchengzhen.cohen.pojo.User;
 import com.huchengzhen.cohen.service.ArticleService;
 import com.huchengzhen.cohen.service.CommentService;
 import com.huchengzhen.cohen.service.UserService;
+import com.huchengzhen.cohen.utils.StringMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,16 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> insertUser(@RequestBody User user) {
+        user.setUsername(user.getUsername().trim());
+        user.setEmail(user.getEmail().trim());
+        if (!StringMatcher.isValidUsername(user.getUsername())) {
+            throw new IllegalArgumentException("Username wrong format");
+        }
+
+        if (!StringMatcher.isValidEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Email wrong format");
+        }
+
         user.setCreateDate(new Date());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -63,5 +74,11 @@ public class UserController {
         int commentRows = commentService.deleteCommentByUserId(id);
         int articleRows = articleService.deleteArticleByAuthorId(id);
         int userRows = userService.deleteUserById(id);
+    }
+
+    private boolean isValidUser(User user) {
+        user.setUsername(user.getUsername().trim());
+        user.setEmail(user.getEmail().trim());
+        return StringMatcher.isValidUsername(user.getUsername()) && StringMatcher.isValidEmail(user.getEmail());
     }
 }
