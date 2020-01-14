@@ -13,7 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +36,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${CohenRememberMeKey}")
     private String rememberMeKey;
+
+    @Value("${CohenSwaggerUsername:swagger}")
+    private String swaggerUsername;
+
+    @Value("${CohenSwaggerPassword:password}")
+    private String swaggerPassword;
 
     @Autowired
     private CustomAccessDeniedHandler accessDeniedHandler;
@@ -62,7 +70,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userService)
-                .passwordEncoder(new BCryptPasswordEncoder());
+                .passwordEncoder(new BCryptPasswordEncoder())
+                .and()
+                .inMemoryAuthentication()
+                .withUser(swaggerUsername).password(swaggerPassword).roles("SWAGGER")
+                .and()
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
     @Override
@@ -74,8 +87,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/register").permitAll()
-                .anyRequest().hasRole("USER")
+                .antMatchers("/api/user/register").permitAll()
+                .antMatchers("/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**").hasRole("SWAGGER")
+                .antMatchers("/api/**").hasRole("USER")
+                .and()
+                .httpBasic()
+                .realmName(RestAuthenticationEntryPoint.realmName)
                 .and()
                 .formLogin()
                 .successHandler(successHandler)

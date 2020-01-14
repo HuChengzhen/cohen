@@ -12,11 +12,14 @@ import java.io.IOException;
 @Component
 public final class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
+    public static final String realmName = "Cohen";
+
     @Override
     public void commence(
             HttpServletRequest request,
             HttpServletResponse response,
             AuthenticationException authException) throws IOException {
+        response.addHeader("WWW-Authenticate", "Basic realm=\"" + realmName + "\"");
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.getWriter().print("Unauthorized");
         response.getWriter().close();
