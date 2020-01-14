@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @Component
-public class MySavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class MyLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private UserService userService;
 

@@ -3,6 +3,7 @@ package com.huchengzhen.cohen.security;
 
 import com.huchengzhen.cohen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -27,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-    private MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler;
+    private MyLoginSuccessHandler mySuccessHandler;
 
     private SimpleUrlAuthenticationFailureHandler myFailureHandler = new SimpleUrlAuthenticationFailureHandler();
 
@@ -35,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomAccessDeniedHandler accessDeniedHandler;
 
     @Autowired
-    public void setMySuccessHandler(MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler) {
+    public void setMySuccessHandler(MyLoginSuccessHandler mySuccessHandler) {
         this.mySuccessHandler = mySuccessHandler;
     }
 
@@ -72,6 +73,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(mySuccessHandler)
                 .failureHandler(myFailureHandler)
                 .and()
+                .rememberMe()
+                .userDetailsService(userService)
+                .and()
                 .logout()
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override
@@ -81,5 +85,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     }
                 })
                 .permitAll();
+    }
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 }

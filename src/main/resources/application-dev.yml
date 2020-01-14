@@ -17,4 +17,4 @@ mybatis:
 
 logging:
   level:
-    com.huchengzhen: trace
+    root: trace
