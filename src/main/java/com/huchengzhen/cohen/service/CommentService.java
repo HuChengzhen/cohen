@@ -27,4 +27,8 @@ public class CommentService {
     public int deleteCommentByArticleId(Integer articleId) {
         return commentMapper.deleteCommentByArticleId(articleId);
     }
+
+    public int insertComment(Comment comment) {
+        return commentMapper.insertComment(comment);
+    }
 }

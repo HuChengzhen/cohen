@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -90,5 +91,12 @@ public class UserController {
         int commentRows = commentService.deleteCommentByUserId(id);
         int articleRows = articleService.deleteArticleByAuthorId(id);
         int userRows = userService.deleteUserById(id);
+    }
+
+    @GetMapping
+    public User currentUser(Authentication authentication) throws CloneNotSupportedException {
+        User user = (User) ((User) authentication.getPrincipal()).clone();
+        user.setPassword(null);
+        return user;
     }
 }

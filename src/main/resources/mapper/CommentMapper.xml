@@ -22,4 +22,9 @@
         from comment
         where article_id = #{articleId}
     </delete>
+
+    <insert id="insertComment" parameterType="com.huchengzhen.cohen.pojo.Comment">
+        insert into comment (id, user_id, article_id, comment, comment_date)
+        values (null, #{userId}, #{articleId}, #{comment}, #{commentDate})
+    </insert>
 </mapper>

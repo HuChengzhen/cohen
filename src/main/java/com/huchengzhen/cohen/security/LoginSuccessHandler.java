@@ -26,7 +26,9 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws ServletException, IOException {
         User user = (User) authentication.getPrincipal();
-        userService.updateLastLoginDate(user.getId(), new Date());
+        Date date = new Date();
+        userService.updateLastLoginDate(user.getId(), date);
+        user.setLastLoginDate(date);
     }
 
 }

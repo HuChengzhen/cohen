@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class User implements UserDetails {
+public class User implements UserDetails, Cloneable {
     private Integer id;
     private String username;
     private String email;
@@ -77,7 +77,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    
+
     @Override
     public String getPassword() {
         return password;
@@ -135,5 +135,10 @@ public class User implements UserDetails {
     @Override
     public int hashCode() {
         return Objects.hash(username);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
