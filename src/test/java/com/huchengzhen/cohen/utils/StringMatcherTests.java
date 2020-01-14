@@ -27,4 +27,16 @@ public class StringMatcherTests {
         assertThat(StringMatcher.isValidEmail("@qq.com")).isFalse();
         assertThat(StringMatcher.isValidEmail("zczcv@qq")).isFalse();
     }
+
+    @Test
+    public void passwordTests() {
+        assertThat(StringMatcher.isValidPassword("123456")).isTrue();
+        assertThat(StringMatcher.isValidPassword("12345")).isFalse();
+        String longString = "123456789012345678901234567890";
+        assertThat(longString.length()).isEqualTo(30);
+        assertThat(StringMatcher.isValidPassword(longString)).isTrue();
+        assertThat(StringMatcher.isValidPassword(longString + "0")).isFalse();
+
+
+    }
 }

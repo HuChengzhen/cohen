@@ -46,6 +46,18 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> insertUser(@RequestBody User user) {
+        if (user.getUsername() == null) {
+            throw new IllegalArgumentException("Username not found");
+        }
+
+        if (user.getEmail() == null) {
+            throw new IllegalArgumentException("Email not found");
+        }
+
+        if (user.getPassword() == null) {
+            throw new IllegalArgumentException("Password not found");
+        }
+
         user.setUsername(user.getUsername().trim());
         user.setEmail(user.getEmail().trim());
         if (!StringMatcher.isValidUsername(user.getUsername())) {
@@ -54,6 +66,10 @@ public class UserController {
 
         if (!StringMatcher.isValidEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email wrong format");
+        }
+
+        if (!StringMatcher.isValidPassword(user.getPassword())) {
+            throw new IllegalArgumentException("Password wrong format");
         }
 
         user.setCreateDate(new Date());
@@ -74,11 +90,5 @@ public class UserController {
         int commentRows = commentService.deleteCommentByUserId(id);
         int articleRows = articleService.deleteArticleByAuthorId(id);
         int userRows = userService.deleteUserById(id);
-    }
-
-    private boolean isValidUser(User user) {
-        user.setUsername(user.getUsername().trim());
-        user.setEmail(user.getEmail().trim());
-        return StringMatcher.isValidUsername(user.getUsername()) && StringMatcher.isValidEmail(user.getEmail());
     }
 }

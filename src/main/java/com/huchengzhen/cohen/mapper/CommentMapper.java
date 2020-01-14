@@ -12,4 +12,6 @@ public interface CommentMapper {
     int deleteCommentByUserId(Integer userId);
 
     int deleteCommentByArticleId(Integer articleId);
+
+    int insertComment(Comment comment);
 }
