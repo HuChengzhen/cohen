@@ -12,12 +12,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @RestController
 @RequestMapping("/api/user")
+@Validated
 public class UserController {
 
     private UserService userService;
@@ -41,12 +44,11 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User findUserById(@PathVariable("id") Integer id) {
-        System.out.println(id);
         return userService.findUserById(id);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> insertUser(@RequestBody User user) {
+    public ResponseEntity insertUser(@RequestBody User user) {
         if (user.getUsername() == null) {
             throw new IllegalArgumentException("Username not found");
         }
@@ -78,10 +80,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles("ROLE_USER");
         int insert = userService.insertUser(user);
-        return insert == 1 ?
-                new ResponseEntity<>("insert: " + insert, HttpStatus.CREATED)
-                :
-                new ResponseEntity<>("insert fail", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(insert == 1 ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/{id}")
@@ -98,5 +97,10 @@ public class UserController {
         User user = (User) ((User) authentication.getPrincipal()).clone();
         user.setPassword(null);
         return user;
+    }
+
+    @GetMapping("/name")
+    public User loadUserByUsername(@NotNull @RequestParam(value = "username", required = true) String username) {
+        return (User) userService.loadUserByUsername(username);
     }
 }

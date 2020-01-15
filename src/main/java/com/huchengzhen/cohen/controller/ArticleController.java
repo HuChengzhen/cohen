@@ -25,7 +25,7 @@ public class ArticleController {
     private CommentService commentService;
 
     @Autowired
-    public void setArticleService(ArticleService argetUsernameticleService) {
+    public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
     }
 
@@ -55,12 +55,12 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<String> insertArticle(@RequestBody Article article, Authentication authentication) {
+    public ResponseEntity insertArticle(@RequestBody Article article, Authentication authentication) {
         article.setUploadedDate(new Date());
         article.setEditDate(new Date());
         article.setAuthorId(((User) authentication.getPrincipal()).getId());
         int row = articleService.insertArticle(article);
-        return row == 1 ? new ResponseEntity<>("Success", HttpStatus.CREATED) : new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
+        return row == 1 ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/{id}")

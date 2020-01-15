@@ -31,7 +31,7 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<String> insertComment(@RequestBody Comment comment, Authentication authentication) {
+    public ResponseEntity insertComment(@RequestBody Comment comment, Authentication authentication) {
         if (comment.getComment() == null) {
             throw new IllegalArgumentException("Comment not found");
         }
@@ -49,6 +49,6 @@ public class CommentController {
         comment.setUserId(user.getId());
         comment.setCommentDate(new Date());
         int row = commentService.insertComment(comment);
-        return row == 1 ? new ResponseEntity<>("Success", HttpStatus.CREATED) : new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
+        return row == 1 ? new ResponseEntity(HttpStatus.CREATED) : new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }
