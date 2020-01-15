@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -39,13 +38,13 @@ public class ArticleControllerTests {
                                 "\t\"title\": \"qwercv\",\n" +
                                 "\t\"article\": \"asgrcvoiuzv\"\n" +
                                 "}"))
-                .andExpect(status().is(HttpStatus.CREATED.value()));
+                .andExpect(status().isCreated());
 
         MvcResult result = mockMvc
                 .perform(get("/api/article/all")
                         .queryParam("page", String.valueOf(Integer.MAX_VALUE))
                         .queryParam("size", "10"))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andReturn();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -55,7 +54,7 @@ public class ArticleControllerTests {
         int lastId = pageInfo.getList().get(pageInfo.getList().size() - 1).getId();
         mockMvc
                 .perform(get("/api/article/detail/{id}", lastId))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", Matchers.equalTo(lastId)))
                 .andExpect(jsonPath("$.author.username", Matchers.equalTo("hcz")))
                 .andExpect(jsonPath("$.comments", Matchers.hasSize(0)))
@@ -75,13 +74,13 @@ public class ArticleControllerTests {
                                 "\t\"title\": \"qwercv\",\n" +
                                 "\t\"article\": \"asgrcvoiuzv\"\n" +
                                 "}"))
-                .andExpect(status().is(HttpStatus.CREATED.value()));
+                .andExpect(status().isCreated());
 
         MvcResult result = mockMvc
                 .perform(get("/api/article/all")
                         .queryParam("page", String.valueOf(Integer.MAX_VALUE))
                         .queryParam("size", "10"))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andReturn();
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -91,7 +90,7 @@ public class ArticleControllerTests {
 
         mockMvc
                 .perform(get("/api/article/{id}", lastId))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", Matchers.equalTo(lastId)))
                 .andExpect(jsonPath("$.authorId", Matchers.equalTo(userId)))
                 .andExpect(jsonPath("$.title", Matchers.equalTo("qwercv")))
@@ -108,13 +107,13 @@ public class ArticleControllerTests {
                                 "\t\"title\": \"qwercv\",\n" +
                                 "\t\"article\": \"asgrcvoiuzv\"\n" +
                                 "}"))
-                .andExpect(status().is(HttpStatus.CREATED.value()));
+                .andExpect(status().isCreated());
 
         MvcResult result = mockMvc
                 .perform(get("/api/article/all")
                         .queryParam("page", String.valueOf(Integer.MAX_VALUE))
                         .queryParam("size", "10"))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andReturn();
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -124,11 +123,11 @@ public class ArticleControllerTests {
 
         mockMvc
                 .perform(delete("/api/article/{id}", lastId))
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().isOk());
 
         mockMvc
                 .perform(get("/api/article/{id}", lastId))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(content().string(""));
     }
 
@@ -143,13 +142,13 @@ public class ArticleControllerTests {
                                 "\t\"title\": \"qwercv\",\n" +
                                 "\t\"article\": \"asgrcvoiuzv\"\n" +
                                 "}"))
-                .andExpect(status().is(HttpStatus.CREATED.value()));
+                .andExpect(status().isCreated());
 
         MvcResult result = mockMvc
                 .perform(get("/api/article/all")
                         .queryParam("page", String.valueOf(Integer.MAX_VALUE))
                         .queryParam("size", "10"))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andReturn();
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -159,11 +158,11 @@ public class ArticleControllerTests {
 
         mockMvc
                 .perform(delete("/api/article/{id}", lastId))
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().isOk());
 
         mockMvc
                 .perform(get("/api/article/{id}", lastId))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(content().string(""));
     }
 }

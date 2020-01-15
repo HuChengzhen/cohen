@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-
+//TODO delete status code
 @RestController
 @RequestMapping("/api/user")
 @Validated

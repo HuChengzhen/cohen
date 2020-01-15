@@ -44,13 +44,13 @@ public class CommentControllerTests {
                                 "                \"comment\": \"comment\",\n" +
                                 "                \"articleId\": 1\n" +
                                 "            }  "))
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().isCreated());
 
         MvcResult result = mockMvc
                 .perform(get("/api/comment/all")
                         .queryParam("page", String.valueOf(Integer.MAX_VALUE))
                         .queryParam("size", "10"))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andReturn();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -59,7 +59,7 @@ public class CommentControllerTests {
         Integer lastId = pageInfo.getList().get(pageInfo.getList().size() - 1).getId();
         mockMvc
                 .perform(get("/api/comment/{id}", lastId))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", Matchers.equalTo(lastId)))
                 .andExpect(jsonPath("$.comment", Matchers.equalTo("comment")))
                 .andExpect(jsonPath("$.articleId", Matchers.equalTo(1)));
@@ -68,7 +68,7 @@ public class CommentControllerTests {
                 .perform(get("/api/comment")
                         .queryParam("articleId", "1")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$..id").isArray())
                 .andExpect(jsonPath("$..id", Matchers.hasItem(lastId)));
     }

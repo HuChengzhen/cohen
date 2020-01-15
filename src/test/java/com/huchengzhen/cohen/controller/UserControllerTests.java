@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -36,7 +35,7 @@ public class UserControllerTests {
         int id = 11;
         mockMvc
                 .perform(delete("/api/user/{id}", id))
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().isOk());
 
 
         mockMvc.perform(post("/api/user/register")
@@ -45,7 +44,7 @@ public class UserControllerTests {
                         "        \"username\": \"fack\",\n" +
                         "        \"password\": \"password\",\n" +
                         "        \"email\": \"fake@gmail.com\"\n" +
-                        "    }")).andExpect(status().is(HttpStatus.CREATED.value()));
+                        "    }")).andExpect(status().isCreated());
         Integer registerId = null;
 
         MvcResult result = mockMvc
@@ -59,11 +58,11 @@ public class UserControllerTests {
 
         mockMvc
                 .perform(delete("/api/user/{id}", registerId))
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().isOk());
 
         mockMvc
                 .perform(get("/api/user/{id}", registerId))
-                .andExpect(status().is(HttpStatus.OK.value()))
+                .andExpect(status().isOk())
                 .andExpect(content().string(""));
     }
 
@@ -77,7 +76,7 @@ public class UserControllerTests {
                         "        \"username\": \"fack\",\n" +
                         "        \"password\": \"password\",\n" +
                         "        \"email\": \"fake@gmail.com\"\n" +
-                        "    }")).andExpect(status().is(HttpStatus.CREATED.value()));
+                        "    }")).andExpect(status().isCreated());
 
         mockMvc
                 .perform(get("/api/user/name")
@@ -96,7 +95,7 @@ public class UserControllerTests {
                         "        \"password\": \"password\",\n" +
                         "        \"email\": \"fakegmail.com\"\n" +
                         "    }"))
-                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(status().isBadRequest())
                 .andExpect(content().string("Email wrong format"));
     }
 
@@ -106,7 +105,7 @@ public class UserControllerTests {
     public void currentUserTests() throws Exception {
         mockMvc
                 .perform(get("/api/user"))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", Matchers.greaterThan(0)));
     }
 
@@ -118,7 +117,7 @@ public class UserControllerTests {
 
         mockMvc
                 .perform(get("/api/user/{id}", id))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", Matchers.equalTo(id)))
                 .andExpect(jsonPath("$.username", Matchers.equalTo("hcz")));
 
@@ -130,7 +129,7 @@ public class UserControllerTests {
                         "        \"username\": \"fack\",\n" +
                         "        \"password\": \"password\",\n" +
                         "        \"email\": \"fake@gmail.com\"\n" +
-                        "    }")).andExpect(status().is(HttpStatus.CREATED.value()));
+                        "    }")).andExpect(status().isCreated());
         Integer registerId = null;
 
         MvcResult result = mockMvc
@@ -144,7 +143,7 @@ public class UserControllerTests {
 
         mockMvc
                 .perform(get("/api/user/{id}", registerId))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", Matchers.equalTo(registerId)))
                 .andExpect(jsonPath("$.username", Matchers.equalTo("fack")));
 
