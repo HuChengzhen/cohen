@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.huchengzhen.cohen.mapper.UserMapper">
     <select id="findUserById" resultType="com.huchengzhen.cohen.pojo.User">
-        select id, username, email, create_date, last_login_date
+        select id, username, email, create_date, last_login_date, roles
         from user
         where id = #{id}
     </select>
@@ -37,4 +37,15 @@
         set last_login_date=#{date}
         where id = #{id}
     </update>
+
+    <select id="queryAll" resultType="com.huchengzhen.cohen.pojo.User">
+        select id,
+               username,
+               email,
+               create_date,
+               last_login_date,
+               roles,
+               enabled
+        from user
+    </select>
 </mapper>

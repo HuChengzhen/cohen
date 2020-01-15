@@ -6,6 +6,7 @@
     <resultMap id="articleDetailResultJoinMap" type="com.huchengzhen.cohen.pojo.ArticleDetail">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
+        <result property="authorId" column="author_id"/>
         <result property="article" column="article"/>
         <result property="uploadedDate" column="uploaded_date"/>
         <result property="editDate" column="edit_date"/>
@@ -16,6 +17,11 @@
             <result property="createDate" column="create_date"/>
             <result property="lastLoginDate" column="last_login_date"/>
         </association>
+
+        <collection property="comments" ofType="com.huchengzhen.cohen.pojo.Comment"
+                    select="com.huchengzhen.cohen.mapper.CommentMapper.findCommentsByArticleId"
+                    column="{articleId=id, id=comment_id}">
+        </collection>
     </resultMap>
 
     <select id="findArticleDetailByIdJoin" resultMap="articleDetailResultJoinMap">
@@ -28,16 +34,24 @@
                user.username,
                user.email,
                user.create_date,
-               user.last_login_date
+               user.last_login_date,
+               comment.id comment_id,
+               comment.comment,
+               comment.user_id,
+               comment.article_id,
+               comment.comment_date
         from article,
-             user
+             user,
+             comment
         where article.id = #{id}
           and article.author_id = user.id
+          and article.id = comment.article_id
     </select>
 
     <resultMap id="articleDetailResultMap" type="com.huchengzhen.cohen.pojo.ArticleDetail">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
+        <result property="authorId" column="author_id"/>
         <result property="article" column="article"/>
         <result property="uploadedDate" column="uploaded_date"/>
         <result property="editDate" column="edit_date"/>

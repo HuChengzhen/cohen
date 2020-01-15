@@ -15,7 +15,6 @@ public class UserControllerTests {
     @Transactional
     @WithUserDetails(value = "hcz", userDetailsServiceBeanName = "userService")
     public void deleteUserTests() {
-
         userController.deleteUser(11);
     }
 }

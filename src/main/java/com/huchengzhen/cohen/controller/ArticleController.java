@@ -25,7 +25,7 @@ public class ArticleController {
     private CommentService commentService;
 
     @Autowired
-    public void setArticleService(ArticleService articleService) {
+    public void setArticleService(ArticleService argetUsernameticleService) {
         this.articleService = articleService;
     }
 

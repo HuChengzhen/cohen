@@ -1,4 +1,4 @@
-package com.huchengzhen.cohen;
+package com.huchengzhen.cohen.security;
 
 import org.springframework.boot.test.context.TestConfiguration;
 
