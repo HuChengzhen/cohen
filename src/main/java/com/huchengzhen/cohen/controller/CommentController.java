@@ -1,5 +1,7 @@
 package com.huchengzhen.cohen.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.huchengzhen.cohen.pojo.Comment;
 import com.huchengzhen.cohen.pojo.User;
 import com.huchengzhen.cohen.service.CommentService;
@@ -30,6 +32,15 @@ public class CommentController {
         return commentService.findCommentsByArticleId(articleId);
     }
 
+    @GetMapping("/all")
+    public PageInfo<Comment> queryAll(@RequestParam(value = "page", defaultValue = "1") int page,
+                                      @RequestParam(value = "size", defaultValue = "20") int size) {
+        PageHelper.startPage(page, size);
+        List<Comment> comments = commentService.queryAll();
+        PageInfo<Comment> pageInfo = new PageInfo<>(comments);
+        return pageInfo;
+    }
+
     @PostMapping
     public ResponseEntity insertComment(@RequestBody Comment comment, Authentication authentication) {
         if (comment.getComment() == null) {
@@ -50,5 +61,10 @@ public class CommentController {
         comment.setCommentDate(new Date());
         int row = commentService.insertComment(comment);
         return row == 1 ? new ResponseEntity(HttpStatus.CREATED) : new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/{id}")
+    public Comment findCommentById(@PathVariable("id") Integer id) {
+        return commentService.findCommentById(id);
     }
 }

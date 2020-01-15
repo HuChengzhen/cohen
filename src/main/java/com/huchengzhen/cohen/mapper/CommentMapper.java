@@ -14,4 +14,8 @@ public interface CommentMapper {
     int deleteCommentByArticleId(Integer articleId);
 
     int insertComment(Comment comment);
+
+    List<Comment> queryAll();
+
+    Comment findCommentById(Integer id);
 }

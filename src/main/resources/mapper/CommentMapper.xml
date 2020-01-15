@@ -27,4 +27,15 @@
         insert into comment (id, user_id, article_id, comment, comment_date)
         values (null, #{userId}, #{articleId}, #{comment}, #{commentDate})
     </insert>
+
+    <select id="queryAll" resultType="com.huchengzhen.cohen.pojo.Comment">
+        select id, comment, user_id, article_id, comment_date
+        from comment
+    </select>
+
+    <select id="findCommentById" resultType="com.huchengzhen.cohen.pojo.Comment">
+        select id, comment, user_id, article_id, comment_date
+        from comment
+        where id = #{id}
+    </select>
 </mapper>

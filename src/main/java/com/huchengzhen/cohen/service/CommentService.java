@@ -31,4 +31,12 @@ public class CommentService {
     public int insertComment(Comment comment) {
         return commentMapper.insertComment(comment);
     }
+
+    public List<Comment> queryAll() {
+        return commentMapper.queryAll();
+    }
+
+    public Comment findCommentById(Integer id) {
+        return commentMapper.findCommentById(id);
+    }
 }
