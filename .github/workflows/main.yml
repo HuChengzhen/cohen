@@ -8,6 +8,6 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
+    - uses: actions/checkout@v1
     - name: run test docker-compose.yml
-      run: ls
-#       run: docker-compose -f DockerTests/docker-compose.yml up
+      run: docker-compose -f DockerTests/docker-compose.yml up
