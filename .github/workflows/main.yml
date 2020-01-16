@@ -10,4 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: run test docker-compose.yml
-      run: docker-compose -f DockerTests/docker-compose.yml up
+      run: docker-compose -f DockerTests/docker-compose.yml run cohen
