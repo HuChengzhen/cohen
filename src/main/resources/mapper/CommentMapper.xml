@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huchengzhen.cohen.mapper.CommentMapper">
+    <resultMap id="commentResultMap" type="com.huchengzhen.cohen.pojo.Comment">
+        <association property="user" javaType="com.huchengzhen.cohen.pojo.User" fetchType="eager"
+                     select="com.huchengzhen.cohen.mapper.UserMapper.findUserById" column="{id=user_id}"/>
+    </resultMap>
+    <select id="findCommentsByArticleId" resultMap="commentResultMap">
+        select id, comment, user_id, article_id, comment_date
+        from comment
+        where article_id = #{articleId}
+    </select>
+    <delete id="deleteCommentByUserId" parameterType="Integer">
+        delete
+        from comment
+        where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteCommentByArticleId" parameterType="Integer">
+        delete
+        from comment
+        where article_id = #{articleId}
+    </delete>
+
+    <insert id="insertComment" parameterType="com.huchengzhen.cohen.pojo.Comment">
+        insert into comment (id, user_id, article_id, comment, comment_date)
+        values (null, #{userId}, #{articleId}, #{comment}, #{commentDate})
+    </insert>
+
+    <select id="queryAll" resultType="com.huchengzhen.cohen.pojo.Comment">
+        select id, comment, user_id, article_id, comment_date
+        from comment
+    </select>
+
+    <select id="findCommentById" resultType="com.huchengzhen.cohen.pojo.Comment">
+        select id, comment, user_id, article_id, comment_date
+        from comment
+        where id = #{id}
+    </select>
+</mapper>

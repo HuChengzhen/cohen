@@ -11,4 +11,5 @@ public class Comment {
     private Integer articleId;
     private String comment;
     private Date commentDate;
+    private User user;
 }

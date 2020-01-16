@@ -9,5 +9,4 @@ class CohenApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
