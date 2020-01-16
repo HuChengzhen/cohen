@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  cohen:
+    build:
+      dockerfile: ./DockerTests/Dockerfile
+      context: ../
+    networks:
+      - cohen-net
+    depends_on:
+      - db
+
+  db:
+    build:
+      dockerfile: ./DockerTests/DockerfileMysql
+      context: ../
+    volumes:
+      - ~/cohen/db-data:/var/lib/mysql
+    networks:
+      - cohen-net
+    environment:
+      MYSQL_ROOT_PASSWORD: ASD2100150
+
+networks:
+  cohen-net:
