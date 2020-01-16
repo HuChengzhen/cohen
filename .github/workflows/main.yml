@@ -1,0 +1,12 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+    - name: run test docker-compose.yml
+      run: docker-compose -f DockerTests/docker-compose.yml up
