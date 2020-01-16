@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private LoginFailureHandler failureHandler;
 
-    @Value("${CohenRememberMeKey}")
+    @Value("${CohenRememberMeKey:key}")
     private String rememberMeKey;
 
     @Value("${CohenSwaggerUsername:swagger}")
@@ -73,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(new BCryptPasswordEncoder())
                 .and()
                 .inMemoryAuthentication()
-                .withUser(swaggerUsername).password(swaggerPassword).roles("SWAGGER")
+                .withUser(swaggerUsername).password(NoOpPasswordEncoder.getInstance().encode(swaggerPassword)).roles("SWAGGER")
                 .and()
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
