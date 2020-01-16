@@ -9,4 +9,5 @@ jobs:
 
     steps:
     - name: run test docker-compose.yml
-      run: docker-compose -f DockerTests/docker-compose.yml up
+      run: ls
+#       run: docker-compose -f DockerTests/docker-compose.yml up
