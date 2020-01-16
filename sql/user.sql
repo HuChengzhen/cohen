@@ -1,3 +1,6 @@
+create database if not exists cohen;
+use cohen;
+
 create table if not exists user
 (
     id              int auto_increment  not null,
