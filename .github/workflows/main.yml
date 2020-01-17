@@ -9,8 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: run test docker-compose.yml
-      run: docker-compose -f DockerTests/docker-compose.yml run cohen
+#     - name: run test docker-compose.yml
+#       run: docker-compose -f DockerTests/docker-compose.yml run cohen
     - name: copy file
       uses: appleboy/scp-action@master
       with:
@@ -28,8 +28,11 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
+        script_stop: true
         script: |
           cd /root/cohen
+          docker-compose -f DockerTests/docker-compose.yml build --no-cache
+          docker-compose -f DockerTests/docker-compose.yml run cohen
           docker-compose build --no-cache
           docker-compose stop
           docker-compose up --force-recreate -d
