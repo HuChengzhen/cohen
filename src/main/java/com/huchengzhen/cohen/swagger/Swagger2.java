@@ -12,6 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.ServletContext;
+import java.util.Date;
 
 @Configuration
 @EnableSwagger2
@@ -38,7 +39,7 @@ public class Swagger2 {
                 .description("RESTful APIs")
                 .termsOfServiceUrl("http://0.0.0.0:8080/")
                 .contact("long")
-                .version("1.0")
+                .version(new Date().toString())
                 .build();
     }
 }
