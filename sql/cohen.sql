@@ -56,7 +56,6 @@
 #         on delete restrict
 # ) engine = InnoDB;
 
-
 -- MySQL dump 10.13  Distrib 8.0.19, for Linux (x86_64)
 --
 -- Host: localhost    Database: cohen
