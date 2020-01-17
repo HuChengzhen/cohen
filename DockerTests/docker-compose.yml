@@ -9,6 +9,8 @@ services:
       - cohen-net-test
     depends_on:
       - db
+    volumes:
+      - ~/.m2:/root/.m2
 
   db:
     build:

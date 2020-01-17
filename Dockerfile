@@ -1,9 +1,7 @@
 FROM maven:3.6.3-jdk-13 as maven
 MAINTAINER Hu Chengzhen <huchengzhen@gmail.com>
-
+VOLUME /root/.m2
 WORKDIR /usr/src/cohen
-COPY pom.xml .
-RUN mvn dependency:resolve
 COPY . .
 #RUN mvn clean package
 RUN mvn -Dmaven.test.skip=true package
