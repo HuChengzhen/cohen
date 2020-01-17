@@ -1,6 +1,6 @@
 FROM maven:3.6.3-jdk-13 as maven
 MAINTAINER Hu Chengzhen <huchengzhen@gmail.com>
-VOLUME /root/.m2
+
 WORKDIR /usr/src/cohen
 COPY . .
 #RUN mvn clean package
