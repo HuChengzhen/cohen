@@ -6,7 +6,7 @@ services:
       dockerfile: ./DockerTests/Dockerfile
       context: ../
     networks:
-      - cohen-net
+      - cohen-net-test
     depends_on:
       - db
 
@@ -17,9 +17,9 @@ services:
     volumes:
       - ~/cohen/db-data:/var/lib/mysql
     networks:
-      - cohen-net
+      - cohen-net-test
     environment:
       MYSQL_ROOT_PASSWORD: ASD2100150
 
 networks:
-  cohen-net:
+  cohen-net-test:
