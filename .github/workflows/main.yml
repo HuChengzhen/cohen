@@ -33,6 +33,7 @@ jobs:
         port: ${{ secrets.PORT }}
         script_stop: true
         script: |
+          source ~/.profile
           cd /root/cohen
           docker-compose stop
           docker-compose -f DockerTests/docker-compose.yml build
