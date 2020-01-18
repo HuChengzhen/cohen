@@ -50,4 +50,29 @@
                avatar
         from user
     </select>
+
+    <resultMap id="userDetailResultMap" type="com.huchengzhen.cohen.pojo.UserDetail">
+        <id property="id" column="id"/>
+        <collection property="follows" ofType="Integer"
+                    select="com.huchengzhen.cohen.mapper.UserFollowMapper.findFollowsByUserId" column="{userId=id}">
+
+        </collection>
+        <collection property="fans" ofType="Integer"
+                    select="com.huchengzhen.cohen.mapper.UserFollowMapper.findFansByUserId" column="{userId=id}">
+
+        </collection>
+    </resultMap>
+
+    <select id="findUserDetailById" resultMap="userDetailResultMap">
+        select id,
+               username,
+               email,
+               create_date,
+               last_login_date,
+               roles,
+               enabled,
+               avatar
+        from user
+        where id = #{id}
+    </select>
 </mapper>

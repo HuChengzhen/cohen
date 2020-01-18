@@ -74,6 +74,7 @@ public class ArticleMapperTests {
         assertThat(articleDetail.getEditDate()).isCloseTo(article.getEditDate(), 1000);
         assertThat(articleDetail.getAuthor().getId()).isEqualTo(id);
         assertThat(articleDetail.getComments().size()).isEqualTo(1);
+        System.out.println(articleDetail);
     }
 
     @Test
@@ -108,6 +109,7 @@ public class ArticleMapperTests {
         assertThat(articleDetail.getEditDate()).isCloseTo(article.getEditDate(), 1000);
         assertThat(articleDetail.getAuthor().getId()).isEqualTo(id);
         assertThat(articleDetail.getComments().size()).isEqualTo(1);
+        System.out.println(articleDetail);
     }
 
     @Test

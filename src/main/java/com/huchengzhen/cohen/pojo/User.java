@@ -150,4 +150,19 @@ public class User implements UserDetails, Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", createDate=" + createDate +
+                ", lastLoginDate=" + lastLoginDate +
+                ", enabled=" + enabled +
+                ", roles='" + roles + '\'' +
+                ", avatar='" + avatar + '\'' +
+                '}';
+    }
 }

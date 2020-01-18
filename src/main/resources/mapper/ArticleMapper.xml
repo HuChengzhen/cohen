@@ -18,9 +18,12 @@
             <result property="lastLoginDate" column="last_login_date"/>
         </association>
 
-        <collection property="comments" ofType="com.huchengzhen.cohen.pojo.Comment"
-                    select="com.huchengzhen.cohen.mapper.CommentMapper.findCommentsByArticleId"
-                    column="{articleId=id, id=comment_id}">
+        <collection property="comments" ofType="com.huchengzhen.cohen.pojo.Comment">
+            <id property="id" column="comment_id"/>
+            <result property="comment" column="comment"/>
+            <result property="userId" column="user_id"/>
+            <result property="articleId" column="article_id"/>
+            <result property="commentDate" column="comment_date"/>
         </collection>
     </resultMap>
 

@@ -1,6 +1,7 @@
 package com.huchengzhen.cohen.mapper;
 
 import com.huchengzhen.cohen.pojo.User;
+import com.huchengzhen.cohen.pojo.UserDetail;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Date;
@@ -20,4 +21,6 @@ public interface UserMapper {
     int updateLastLoginDate(Integer id, Date date);
 
     List<User> queryAll();
+
+    UserDetail findUserDetailById(Integer id);
 }

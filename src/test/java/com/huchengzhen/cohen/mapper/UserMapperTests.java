@@ -3,6 +3,7 @@ package com.huchengzhen.cohen.mapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.huchengzhen.cohen.pojo.User;
+import com.huchengzhen.cohen.pojo.UserDetail;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,12 @@ public class UserMapperTests {
         assertUserWithoutIdAndPassword(user, user2);
     }
 
+    @Test
+    public void getUserDetailTests() {
+        UserDetail userDetail = userMapper.findUserDetailById(9);
+        System.out.println(userDetail);
+    }
+
     @NotNull
     private User getUser() {
         String username = "asuidfh";
@@ -119,6 +126,5 @@ public class UserMapperTests {
         assertThat(user.getCreateDate()).isCloseTo(user2.getCreateDate(), 1000);
         assertThat(user.getLastLoginDate()).isCloseTo(user2.getLastLoginDate(), 1000);
     }
-
 
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huchengzhen.cohen.mapper.UserFollowMapper">
+
+    <select id="findFansByUserId" resultType="Integer">
+        select follower
+        from user_follow
+        where followed = #{userId}
+    </select>
+
+    <select id="findFollowsByUserId" resultType="Integer">
+        select followed
+        from user_follow
+        where follower = #{userId}
+    </select>
+
+</mapper>
