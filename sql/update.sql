@@ -16,6 +16,19 @@ begin
         );
         insert into database_version (id, version, date) values (null, 2.0, now());
     end if;
+
+    if db_version <= 2.0 then
+        ALTER TABLE `cohen`.`user_follow`
+            CHANGE COLUMN `follower` `follower` INT NOT NULL,
+            CHANGE COLUMN `followed` `followed` INT NOT NULL ;
+        create index follower_index on user_follow (follower);
+        create index followed_index on user_follow (followed);
+        alter table user_follow
+            add constraint fk_follower foreign key (follower) references user (id);
+        alter table user_follow
+            add constraint fk_followed foreign key (followed) references user (id);
+        insert into database_version (id, version, date) values (null, 3.0, now());
+    end if;
 end $$
 delimiter ;
 call update_database();
