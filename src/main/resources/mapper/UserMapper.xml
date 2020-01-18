@@ -3,14 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.huchengzhen.cohen.mapper.UserMapper">
     <select id="findUserById" resultType="com.huchengzhen.cohen.pojo.User">
-        select id, username, email, create_date, last_login_date, roles
+        select id, username, email, create_date, last_login_date, roles, avatar
         from user
         where id = #{id}
     </select>
 
     <insert id="insertUser" parameterType="com.huchengzhen.cohen.pojo.User">
-        insert into user(id, username, email, password, create_date, last_login_date, roles)
-        values (null, #{username}, #{email}, #{password}, #{createDate}, #{lastLoginDate}, #{roles})
+        insert into user(id, username, email, password, create_date, last_login_date, roles, avatar)
+        values (null, #{username}, #{email}, #{password}, #{createDate}, #{lastLoginDate}, #{roles}, #{avatar})
     </insert>
 
     <select id="loadUserByUsername" resultType="com.huchengzhen.cohen.pojo.User">
@@ -21,7 +21,8 @@
                create_date,
                last_login_date,
                roles,
-               enabled
+               enabled,
+               avatar
         from user
         where username = #{username}
     </select>
@@ -45,7 +46,8 @@
                create_date,
                last_login_date,
                roles,
-               enabled
+               enabled,
+               avatar
         from user
     </select>
 </mapper>

@@ -19,6 +19,7 @@ public class User implements UserDetails, Cloneable {
     private Date lastLoginDate;
     private Boolean enabled;
     private String roles;
+    private String avatar;
 
     private List<GrantedAuthority> authorities;
 
@@ -122,6 +123,14 @@ public class User implements UserDetails, Cloneable {
 
     public void setAuthorities(List<GrantedAuthority> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @Override
