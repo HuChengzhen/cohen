@@ -53,12 +53,19 @@
 
     <resultMap id="userDetailResultMap" type="com.huchengzhen.cohen.pojo.UserDetail">
         <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="createDate" column="create_date"/>
+        <result property="lastLoginDate" column="last_login_date"/>
+        <result property="roles" column="roles"/>
+        <result property="enabled" column="enabled"/>
+        <result property="avatar" column="avatar"/>
         <collection property="follows" ofType="Integer"
-                    select="com.huchengzhen.cohen.mapper.UserFollowMapper.findFollowsByUserId" column="{userId=id}">
+                    select="com.huchengzhen.cohen.mapper.UserFollowMapper.findFollowIdsByUserId" column="{userId=id}">
 
         </collection>
         <collection property="fans" ofType="Integer"
-                    select="com.huchengzhen.cohen.mapper.UserFollowMapper.findFansByUserId" column="{userId=id}">
+                    select="com.huchengzhen.cohen.mapper.UserFollowMapper.findFanIdsByUserId" column="{userId=id}">
 
         </collection>
     </resultMap>

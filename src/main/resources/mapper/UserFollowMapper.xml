@@ -3,16 +3,30 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.huchengzhen.cohen.mapper.UserFollowMapper">
 
-    <select id="findFansByUserId" resultType="Integer">
+    <select id="findFanIdsByUserId" resultType="Integer">
         select follower
         from user_follow
         where followed = #{userId}
+        order by date desc
     </select>
 
-    <select id="findFollowsByUserId" resultType="Integer">
+    <select id="findFollowIdsByUserId" resultType="Integer">
         select followed
         from user_follow
         where follower = #{userId}
+        order by date desc
     </select>
+
+    <insert id="follow">
+        insert into user_follow (id, follower, followed, date)
+        VALUES (null, #{follower}, #{followed}, now())
+    </insert>
+
+    <delete id="cancel">
+        delete
+        from user_follow
+        where follower = #{follower}
+          and followed = #{followed}
+    </delete>
 
 </mapper>

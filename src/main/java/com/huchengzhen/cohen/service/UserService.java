@@ -46,4 +46,5 @@ public class UserService implements UserDetailsService {
     public int updateLastLoginDate(Integer id, Date date) {
         return userMapper.updateLastLoginDate(id, date);
     }
+
 }

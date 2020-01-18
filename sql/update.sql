@@ -29,6 +29,12 @@ begin
             add constraint fk_followed foreign key (followed) references user (id);
         insert into database_version (id, version, date) values (null, 3.0, now());
     end if;
+
+    if db_version <= 3.0 then
+        ALTER TABLE `cohen`.`user_follow`
+            ADD COLUMN `date` DATETIME NOT NULL AFTER `followed`;
+        insert into database_version (id, version, date) values (null, 4.0, now());
+    end if;
 end $$
 delimiter ;
 call update_database();

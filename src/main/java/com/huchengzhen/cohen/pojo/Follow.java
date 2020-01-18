@@ -1,10 +1,9 @@
 package com.huchengzhen.cohen.pojo;
 
-import java.util.Date;
+import lombok.Data;
 
-public class UserFollow {
-    private Integer id;
+@Data
+public class Follow {
     private Integer follower;
     private Integer followed;
-    private Date date;
 }
