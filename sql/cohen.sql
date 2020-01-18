@@ -1,67 +1,11 @@
-# create database if not exists cohen;
-# use cohen;
-#
-# create table if not exists user
-# (
-#     id              int auto_increment  not null,
-#     username        varchar(50) unique  not null,
-#     email           varchar(255) unique not null,
-#     password        CHAR(60)            not null,
-#     create_date     datetime            not null,
-#     last_login_date datetime            null,
-#     enabled         tinyint(4)          NOT NULL DEFAULT '1',
-#     roles           text,
-#     primary key (id),
-#     index username_index (username)
-# ) engine = InnoDB;
-#
-# INSERT INTO `user`
-# VALUES (null, 'hcz', 'hcz1995@qq.com', '$2a$10$qTU7t4u3Si9AwusJTGFAZ.LdfYwASPxI65spRsoMkXDgHSfJrQekO',
-#         '2020-01-13 20:24:35', '2020-01-15 15:50:54', 1, 'ROLE_USER,ROLE_ADMIN'),
-#        (null, 'cohen', 'cohen@gmail.com', '$2a$10$fBzyNHG2FkmYmTpki4Fim.CJrWMYKIhBfMnzXiFrkEFGVVNsHwwni',
-#         '2020-01-14 11:05:51', '2020-01-14 20:28:00', 1, 'ROLE_USER');
-#
-#
-# create table if not exists article
-# (
-#     id            int          not null auto_increment,
-#     title         varchar(255) not null,
-#     article       LONGTEXT     null,
-#     author_id     int          not null,
-#     uploaded_date datetime     not null,
-#     edit_date     datetime     not null,
-#     primary key (id),
-#     foreign key fk_user (author_id)
-#         references user (id)
-#         on update cascade
-#         on delete restrict
-# ) engine = InnoDB;
-#
-#
-# create table if not exists comment
-# (
-#     id           int      not null auto_increment,
-#     user_id      int      not null,
-#     article_id   int      not null,
-#     comment      text     not null,
-#     comment_date datetime not null,
-#     primary key (id),
-#     foreign key fk_article (article_id)
-#         references article (id)
-#         on update cascade
-#         on delete restrict,
-#     foreign key fk_user (user_id)
-#         references user (id)
-#         on update cascade
-#         on delete restrict
-# ) engine = InnoDB;
+create database if not exists cohen;
+use cohen;
 
 -- MySQL dump 10.13  Distrib 8.0.19, for Linux (x86_64)
 --
 -- Host: localhost    Database: cohen
 -- ------------------------------------------------------
 -- Server version	8.0.19
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS = @@CHARACTER_SET_RESULTS */;
@@ -73,9 +17,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
-
-create database if not exists cohen;
-use cohen;
 
 --
 -- Table structure for table `article`
@@ -96,7 +37,7 @@ CREATE TABLE `article`
     KEY `fk_user` (`author_id`),
     CONSTRAINT `article_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 232
+  AUTO_INCREMENT = 245
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -145,7 +86,7 @@ CREATE TABLE `comment`
     CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 129
+  AUTO_INCREMENT = 136
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -168,6 +109,38 @@ VALUES (4, 9, 1, 'wetasdfasf', '2020-01-14 15:52:49'),
 UNLOCK TABLES;
 
 --
+-- Table structure for table `database_version`
+--
+
+DROP TABLE IF EXISTS `database_version`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `database_version`
+(
+    `id`      int      NOT NULL AUTO_INCREMENT,
+    `version` double   NOT NULL,
+    `date`    datetime NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 2
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `database_version`
+--
+
+LOCK TABLES `database_version` WRITE;
+/*!40000 ALTER TABLE `database_version`
+    DISABLE KEYS */;
+INSERT INTO `database_version`
+VALUES (1, 1, '2020-01-18 12:41:49');
+/*!40000 ALTER TABLE `database_version`
+    ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -184,12 +157,13 @@ CREATE TABLE `user`
     `last_login_date` datetime              DEFAULT NULL,
     `enabled`         tinyint      NOT NULL DEFAULT '1',
     `roles`           text,
+    `avatar`          varchar(45)           DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `username_UNIQUE` (`username`),
     UNIQUE KEY `email_UNIQUE` (`email`),
     KEY `username_index` (`username`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 357
+  AUTO_INCREMENT = 376
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -203,17 +177,17 @@ LOCK TABLES `user` WRITE;
     DISABLE KEYS */;
 INSERT INTO `user`
 VALUES (9, 'hcz', 'hcz1995@qq.com', '$2a$10$qTU7t4u3Si9AwusJTGFAZ.LdfYwASPxI65spRsoMkXDgHSfJrQekO',
-        '2020-01-13 20:24:35', '2020-01-15 15:50:54', 1, 'ROLE_USER,ROLE_ADMIN'),
+        '2020-01-13 20:24:35', '2020-01-15 15:50:54', 1, 'ROLE_USER,ROLE_ADMIN', NULL),
        (13, 'cohen', 'cohen@gmail.com', '$2a$10$fBzyNHG2FkmYmTpki4Fim.CJrWMYKIhBfMnzXiFrkEFGVVNsHwwni',
-        '2020-01-14 11:05:51', '2020-01-14 20:28:00', 1, 'ROLE_USER'),
+        '2020-01-14 11:05:51', '2020-01-14 20:28:00', 1, 'ROLE_USER', NULL),
        (19, 'cohen123', 'cohen123@gmail.com', '$2a$10$mJeqrHt1lUGkvOOGrW/Sj.zZoO0CaP/guTCjc8N9zpqIQHobgxCRa',
-        '2020-01-14 15:05:30', NULL, 1, 'ROLE_USER'),
+        '2020-01-14 15:05:30', NULL, 1, 'ROLE_USER', NULL),
        (21, 'cohen12345', 'cohen1235@gmail.com', '$2a$10$GML9kgj6xtzV2ZeUS6vXrOeQFEvs1W3Snkej2cyjON3oWaXuNVzYq',
-        '2020-01-14 19:03:03', NULL, 1, 'ROLE_USER'),
+        '2020-01-14 19:03:03', NULL, 1, 'ROLE_USER', NULL),
        (22, 'cohen12364', 'cohen123666@gmail.com', '$2a$10$wh6eTMWnAD6kQ1Zyy5dh6uXFbHfHfJyt456dwxj7AQO7N6/kJIBmC',
-        '2020-01-14 19:51:32', NULL, 1, 'ROLE_USER'),
+        '2020-01-14 19:51:32', NULL, 1, 'ROLE_USER', NULL),
        (23, 'cohen3', 'cohen3@gmail.com', '$2a$10$U0JHCVzBqYxYFBY/mG1ff.bKau1NnV5irbj6AOZjoMQSA0tVhQ13K',
-        '2020-01-14 23:14:44', NULL, 1, 'ROLE_USER');
+        '2020-01-14 23:14:44', NULL, 1, 'ROLE_USER', NULL);
 /*!40000 ALTER TABLE `user`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -227,4 +201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-16 18:30:36
+-- Dump completed on 2020-01-18 12:43:47

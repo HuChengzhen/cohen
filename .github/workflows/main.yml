@@ -23,7 +23,7 @@ jobs:
         port: ${{ secrets.PORT }}
         source: "."
         rm: true
-        target: "/root/cohen"
+        target: "/root/java/cohen"
     - name: Executing remote  command
       uses: appleboy/ssh-action@master
       with:
@@ -34,8 +34,15 @@ jobs:
         script_stop: true
         script: |
           source ~/.profile
-          cd /root/cohen
+          cd /root/java/cohen
           docker-compose stop
+          docker container stop cohen-mysql
+          docker container rm cohen-mysql
+          docker build -f DockerfileMysql -t cohen-mysql:latest .
+          docker run --name cohen-mysql -v ~/cohen/db-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=ASD2100150 -d cohen-mysql:latest
+          read -p "Pause Time 5 seconds" -t 5
+          docker exec -i cohen-mysql sh -c 'exec mysql -uroot -pASD2100150' < sql/update.sql
+          docker stop cohen-mysql
           docker-compose -f DockerTests/docker-compose.yml build
           docker-compose -f DockerTests/docker-compose.yml run cohen
           docker-compose -f DockerTests/docker-compose.yml stop
