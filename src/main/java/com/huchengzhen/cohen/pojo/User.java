@@ -1,7 +1,7 @@
 package com.huchengzhen.cohen.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,18 +12,18 @@ import java.util.Objects;
 
 
 public class User implements UserDetails, Cloneable {
-    @ApiParam(hidden = true)
+    @ApiModelProperty(hidden = true)
     private Integer id;
     private String username;
     private String email;
     private String password;
-    @ApiParam(hidden = true)
+    @ApiModelProperty(hidden = true)
     private Date createDate;
-    @ApiParam(hidden = true)
+    @ApiModelProperty(hidden = true)
     private Date lastLoginDate;
-    @ApiParam(hidden = true)
+    @ApiModelProperty(hidden = true)
     private Boolean enabled;
-    @ApiParam(hidden = true)
+    @ApiModelProperty(hidden = true)
     private String roles;
     private String avatar;
 

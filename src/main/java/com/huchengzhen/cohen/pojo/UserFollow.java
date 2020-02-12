@@ -1,11 +1,11 @@
 package com.huchengzhen.cohen.pojo;
 
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
 
 public class UserFollow {
-    @ApiParam(hidden = true)
+    @ApiModelProperty(hidden = true)
     private Integer id;
     private Integer follower;
     private Integer followed;

@@ -1,20 +1,20 @@
 package com.huchengzhen.cohen.pojo;
 
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
 public class Comment {
-    @ApiParam(hidden = true)
+    @ApiModelProperty(hidden = true)
     private Integer id;
-    @ApiParam(hidden = true)
+    @ApiModelProperty(hidden = true)
     private Integer userId;
     private Integer articleId;
     private String comment;
-    @ApiParam(hidden = true)
+    @ApiModelProperty(hidden = true)
     private Date commentDate;
-    @ApiParam(hidden = true)
+    @ApiModelProperty(hidden = true)
     private User user;
 }
