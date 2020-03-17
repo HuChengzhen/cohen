@@ -1,11 +1,12 @@
-# syntax=docker/dockerfile:experimental
 FROM maven:3.6.3-jdk-13 as maven
 MAINTAINER Hu Chengzhen <huchengzhen@gmail.com>
 
 WORKDIR /usr/src/cohen
-COPY . .
+COPY ./pom.xml ./
 #RUN mvn clean package
-RUN --mount=type=cache,target=/root/.m2 mvn -Dmaven.test.skip=true package
+RUN mvn dependency:go-offline
+COPY ./ ./
+RUN mvn clean package -DskipTests
 
 FROM openjdk:13.0.2-jdk
 MAINTAINER Hu Chengzhen <huchengzhen@gmail.com>
